@@ -144,5 +144,46 @@
         <div id="hasil"></div>
     </div>
 
+ <script>
+        const API_KEY = 'rWKXRtXWJKT2InPiBxvM';
+        const BASE_URL = 'https://api.maptiler.com/geocoding';
 
+        async function cariLokasi() {
+            const query = document.getElementById('inputLokasi').value.trim();
+            if (!query) return;
+
+            const tombol = document.getElementById('tombolCari');
+            const statusEl = document.getElementById('status');
+            const hasilEl = document.getElementById('hasil');
+
+            tombol.disabled = true;
+            tombol.textContent = '...';
+            statusEl.textContent = 'Mengambil data...';
+            statusEl.className = 'status';
+            hasilEl.innerHTML = '';
+
+            try {
+                const url = `${BASE_URL}/${encodeURIComponent(query)}.json?key=${API_KEY}&language=id&limit=1`;
+                const response = await fetch(url);
+
+                if (response.status === 403) {
+                    throw new Error('API Key ditolak (403)');
+                }
+                if (!response.ok) {
+                    throw new Error(`API error ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (!data.features || data.features.length === 0) {
+                    statusEl.textContent = 'Lokasi tidak ditemukan.';
+                    statusEl.className = 'status error';
+                    return;
+                }
+
+                const fitur = data.features[0];
+                const props = fitur.properties || {};
+                const coords = fitur.geometry.coordinates;
+                const longitude = coords[0];
+                const latitude = coords[1];
 
