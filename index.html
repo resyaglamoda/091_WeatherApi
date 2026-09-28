@@ -187,3 +187,50 @@
                 const longitude = coords[0];
                 const latitude = coords[1];
 
+  const placeName    = fitur.place_name || '-';
+                const matchingText = props.address    || props.name || fitur.text || '-';
+                const tipe         = props.type       || (fitur.place_type && fitur.place_type[0]) || '-';
+                const koordinat    = `${longitude}, ${latitude}`;
+
+                // Hanya tampilkan 4 baris sesuai gambar
+                hasilEl.innerHTML = `
+                    <div class="baris-hasil">
+                        <span class="label">Place Name</span>
+                        <span class="nilai">${placeName}</span>
+                    </div>
+                    <div class="baris-hasil">
+                        <span class="label">Matching Text</span>
+                        <span class="nilai">${matchingText}</span>
+                    </div>
+                    <div class="baris-hasil">
+                        <span class="label">Type</span>
+                        <span class="nilai">${tipe}</span>
+                    </div>
+                    <div class="baris-hasil">
+                        <span class="label">Koordinat</span>
+                        <span class="nilai">${koordinat}</span>
+                    </div>
+                `;
+
+                statusEl.textContent = '';
+
+            } catch (err) {
+                console.error(err);
+                statusEl.textContent = `Gagal: ${err.message}`;
+                statusEl.className = 'status error';
+            } finally {
+                tombol.disabled = false;
+                tombol.textContent = 'Search';
+            }
+        }
+
+        document.getElementById('inputLokasi').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') cariLokasi();
+        });
+
+        // Auto-load saat halaman dibuka
+        window.addEventListener('load', cariLokasi);
+    </script>
+
+</body>
+</html>
