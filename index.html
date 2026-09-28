@@ -95,3 +95,54 @@
             border-bottom: 1px solid rgba(10, 37, 64, 0.15);
         }
 
+         .baris-hasil:last-child { border-bottom: none; }
+
+        .label {
+            font-size: 0.74rem;
+            font-weight: bold;
+            color: #0a2540;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .nilai {
+            font-size: 0.82rem;
+            color: #0a2540;
+            text-align: right;
+            word-break: break-word;
+        }
+
+        .status {
+            text-align: center;
+            font-size: 0.78rem;
+            color: #0a2540;
+            padding: 10px 0;
+            font-style: italic;
+        }
+
+        .error { color: #a02020; }
+    </style>
+</head>
+<body>
+
+    <div class="kartu">
+        <div class="judul-atas">PWS 8 JULI 2026</div>
+        <hr class="garis">
+
+        <div class="nama">
+            Resya Glamoda<br>
+            20240140091
+        </div>
+
+        <div class="grup-input">
+            <input type="text" id="inputLokasi" placeholder="Bandung" value="Bandung" />
+            <button id="tombolCari" onclick="cariLokasi()">Search</button>
+        </div>
+
+        <div id="status" class="status"></div>
+        <div id="hasil"></div>
+    </div>
+
+
+
